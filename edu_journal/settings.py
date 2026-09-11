@@ -128,3 +128,6 @@ MAILERS = {
 }
 
 AUTH_USER_MODEL = 'journal.User'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
