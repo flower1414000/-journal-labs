@@ -67,3 +67,37 @@ def add_attendance(request):
 def attendance_list(request):
     records = Attendance.objects.select_related('student', 'student__group').all()
     return render(request, 'journal/attendance_list.html', {'records': records})
+
+
+
+
+@login_required
+def profile_dispatch(request):
+    """
+    Диспетчер по ролям: смотрит, кто пользователь, и перенаправляет
+    на нужную страницу.
+    Приоритет: студент → преподаватель → общая страница.
+    """
+    user = request.user
+    if user.is_student:
+        return redirect('student_page')
+    elif user.is_teacher:
+        return redirect('teacher_page')
+    else:
+        return render(request, 'journal/no_profile.html')
+
+
+@login_required
+def student_page(request):
+    """Страница студента. Доступна только студентам."""
+    if not request.user.is_student:
+        return render(request, 'journal/no_access.html', {'title': 'Нет доступа'})
+    return render(request, 'journal/student_page.html')
+
+
+@login_required
+def teacher_page(request):
+    """Страница преподавателя. Доступна только преподавателям."""
+    if not request.user.is_teacher:
+        return render(request, 'journal/no_access.html', {'title': 'Нет доступа'})
+    return render(request, 'journal/teacher_page.html')
