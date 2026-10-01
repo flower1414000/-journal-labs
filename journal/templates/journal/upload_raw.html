@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Загрузка файла{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Ручная загрузка файла</h2>
+
+{% if message %}
+    <div class="alert alert-info">{{ message }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="file_upload" class="form-label">Выберите файл:</label>
+        <input type="file" name="file_upload" id="file_upload" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endblock %}

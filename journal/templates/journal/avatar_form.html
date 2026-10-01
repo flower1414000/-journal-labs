@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Обновить аватар{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Обновить аватар</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+{% if request.user.student_profile.avatar %}
+    <hr>
+    <p><strong>Текущий аватар:</strong></p>
+    <img src="{{ request.user.student_profile.avatar.url }}"
+         alt="Аватар"
+         style="max-width: 180px; border-radius: 8px;">
+{% endif %}
+{% endblock %}

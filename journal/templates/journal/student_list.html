@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Список студентов{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Список студентов</h2>
+
+<form method="get" class="row g-3 mb-4 p-3 bg-light rounded">
+    <div class="col-md-4">
+        <label for="{{ form.last_name.id_for_label }}" class="form-label">
+            {{ form.last_name.label }}
+        </label>
+        {{ form.last_name }}
+    </div>
+    <div class="col-md-4">
+        <label for="{{ form.group.id_for_label }}" class="form-label">
+            {{ form.group.label }}
+        </label>
+        {{ form.group }}
+    </div>
+    <div class="col-md-4">
+        <label for="{{ form.group_name.id_for_label }}" class="form-label">
+            {{ form.group_name.label }}
+        </label>
+        {{ form.group_name }}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Сбросить</a>
+    </div>
+
+    {% if form.errors %}
+        <div class="col-12">
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+        </div>
+    {% endif %}
+</form>
+
+{% if students %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Группа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.last_name }} {{ student.first_name }} {{ student.patronymic }}</td>
+                    <td>{{ student.group.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="alert alert-info">Студенты не найдены.</div>
+{% endif %}
+{% endblock %}

@@ -130,5 +130,13 @@ MAILERS = {
 AUTH_USER_MODEL = 'journal.User'
 
 LOGIN_URL = 'login'
+<<<<<<< HEAD
+LOGIN_REDIRECT_URL = 'profile_dispatch'
+LOGOUT_REDIRECT_URL = 'login'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+=======
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
+>>>>>>> c7beefcafbab590e28882854e346ab22599d7a7e
